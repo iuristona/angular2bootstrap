@@ -1,0 +1,39 @@
+<nav class="navbar navbar-inverse" [class.navbar-static-top]="currentStatus == 'static'" [class.navbar-fixed-top]="currentStatus == 'fixed'">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['Home']">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li [class.active]="isActive(['Home'])"><a [routerLink]="['Home']">Home</a></li>
+                <li [class.active]="isActive(['About'])"><a [routerLink]="['About']">About</a></li>
+                <li [class.active]="isActive(['Contacts'])"><a [routerLink]="['Contacts']">Contacts</a></li>
+                <li dropdown>
+                    <a href id="simple-dropdown" dropdownToggle>Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+                        <li><a role="button">Action</a></li>
+                        <li><a role="button">Another action</a></li>
+                        <li><a role="button">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a role="button">Separated link</a></li>
+                        <li><a role="button">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li [class.active]="currentStatus == 'default'"><a role="button" (click)="changeNavbar('default')">Default</a></li>
+                <li [class.active]="currentStatus == 'static'"><a role="button" (click)="changeNavbar('static')">Static top</a></li>
+                <li [class.active]="currentStatus == 'fixed'"><a role="button" (click)="changeNavbar('fixed')">Fixed top</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div *ngIf="currentStatus == 'fixed'" style="min-height: 51px; margin-bottom: 20px;"></div>
+<div class="container-fluid"><pre>{{ today }}</pre></div>
