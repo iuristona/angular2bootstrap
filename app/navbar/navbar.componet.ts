@@ -5,6 +5,8 @@ import {UtilsService} from './../_shared/utils.service';
 import * as moment_ from 'moment';
 const moment: moment.MomentStatic = (<any>moment_)['default'] || moment_;
 
+type Status = 'fixed' | 'static' | 'default';
+
 @Component({
     selector: 'navbar',
     directives: [DROPDOWN_DIRECTIVES, ROUTER_DIRECTIVES],
@@ -13,13 +15,13 @@ const moment: moment.MomentStatic = (<any>moment_)['default'] || moment_;
     templateUrl: './app/navbar/navbar.template.html'
 })
 export class NavbarComponent {
-  
-    currentStatus: 'fixed' | 'static' | 'default' = 'static';
+    
+    currentStatus: Status = 'static';
     today = moment(new Date()).format('dddd, DD [de] MMMM [de] YYYY');
 
     constructor(private _utils: UtilsService) { }
     
-    changeNavbar(status: 'fixed' | 'static' | 'default') {
+    changeNavbar(status: Status) {
         this.currentStatus = status;      
     }
 

@@ -28,11 +28,9 @@ export class ContactComponent {
         address: false
     };
     rootTab = 'profile';    
-    currentTab = this.rootTab;
+    currentTab = this.rootTab;   
+    contact: Contact = { id: 0, name: '', phone: '', email: '' };
     
-    contact: Contact = { id: 0, name: '' };
-    
-
     constructor(private _contactService: ContactService, private _router: Router, private _location: Location, private _routeParams: RouteParams) { }
     
     ngOnInit() {

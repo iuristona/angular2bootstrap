@@ -1,20 +1,20 @@
 export class Utils {
     
-    static orderBy<T>(data: T[], keyOf: (item: T) => any): T[] {
-        var result = data.slice(0);
-        result = data.sort(function (a, b) {
-            var ka = keyOf(a) === null ? "" : keyOf(a),
-                kb = keyOf(b) === null ? "" : keyOf(b);
+    static orderBy<T>(list: T[], keyOf: (item: T) => any): T[] {
+        let result = list.slice(0);
+        result = list.sort((a, b) => {
+            let ka = keyOf(a) === null ? '' : keyOf(a);
+            let kb = keyOf(b) === null ? '' : keyOf(b);
             return ka > kb ? 1 : ka < kb ? -1 : 0;
         });
         return result;
     }
 
-    static orderByDescending<T>(data: T[], keyOf: (item: T) => any): T[] {
-        var result = data.slice(0);
-        result = data.sort(function (b, a) {
-            var ka = keyOf(a) === null ? "" : keyOf(a),
-                kb = keyOf(b) === null ? "" : keyOf(b);
+    static orderByDescending<T>(list: T[], keyOf: (item: T) => any): T[] {
+        let result = list.slice(0);
+        result = list.sort((b, a) => {
+            let ka = keyOf(a) === null ? '' : keyOf(a);
+            let kb = keyOf(b) === null ? '' : keyOf(b);
             return ka > kb ? 1 : ka < kb ? -1 : 0;
         });
         return result;
@@ -22,12 +22,12 @@ export class Utils {
 
     static removeAcentos(s: string) {
         if (!s) { return ""; }
-        var accentMap = {
+        let accentMap = {
             "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ã": "a", "õ": "o", "â": "a", "ê": "e", "î": "i", "ô": "o", "û": "u", "ç": "c", "ä": "a", "ë": "e", "ï": "i", "ö": "o", "ü": "u", "à": "a", "è": "e", "ì": "i", "ò": "o", "ù": "u",
             "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ã": "A", "Õ": "O", "Â": "A", "Ê": "E", "Î": "I", "Ô": "O", "Û": "U", "Ç": "C", "Ä": "A", "Ë": "E", "Ï": "I", "Ö": "O", "Ü": "U", "À": "A", "È": "E", "Ì": "I", "Ò": "O", "Ù": "U"
         };
-        var r = '';
-        for (var i = 0; i < s.length; i++) {
+        let r = '';
+        for (let i = 0; i < s.length; i++) {
             r += accentMap[s.charAt(i)] || s.charAt(i);
         }
         return r;
