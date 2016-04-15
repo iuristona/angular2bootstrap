@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {Location, Router, RouteParams} from 'angular2/router';
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Contact} from './contact';
@@ -21,7 +21,7 @@ import {ContactService} from './contact.service';
 </tabset>
     `
 })
-export class ContactComponent { 
+export class ContactComponent implements OnInit { 
     tabs = {
         profile: true,
         photo: false,
