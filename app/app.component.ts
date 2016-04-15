@@ -1,11 +1,9 @@
 import {Component} from 'angular2/core';
-import {Alert, TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, AsyncRoute} from 'angular2/router';
-import {NavbarComponent} from './navbar/navbar.componet';
+import {NavbarComponent} from './navbar/navbar.component';
 //import {AboutComponent} from './about/about.component';
 import {HomeComponent} from './home/home.component';
 import {ContactsRootComponent} from './contacts/contacts.root.component';
-
 
 declare var System;
 
@@ -18,7 +16,7 @@ declare var System;
 ])
 @Component({
     selector: 'app',
-    directives: [ROUTER_DIRECTIVES, Alert, TAB_DIRECTIVES, NavbarComponent, HomeComponent],
+    directives: [ROUTER_DIRECTIVES, NavbarComponent, HomeComponent],
     template: `    
 <navbar></navbar>
 <div class="container">
@@ -26,7 +24,6 @@ declare var System;
     <router-outlet></router-outlet>
         
 </div>
-
 `
 })
 export class AppComponent { }
