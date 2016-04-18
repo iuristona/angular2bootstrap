@@ -1,5 +1,5 @@
 export class Utils {
-    
+
     static orderBy<T>(list: T[], keyOf: (item: T) => any): T[] {
         let result = list.slice(0);
         result = list.sort((a, b) => {
@@ -21,10 +21,10 @@ export class Utils {
     }
 
     static removeAcentos(s: string) {
-        if (!s) { return ""; }
+        if (!s) { return ''; }
         let accentMap = {
-            "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ã": "a", "õ": "o", "â": "a", "ê": "e", "î": "i", "ô": "o", "û": "u", "ç": "c", "ä": "a", "ë": "e", "ï": "i", "ö": "o", "ü": "u", "à": "a", "è": "e", "ì": "i", "ò": "o", "ù": "u",
-            "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ã": "A", "Õ": "O", "Â": "A", "Ê": "E", "Î": "I", "Ô": "O", "Û": "U", "Ç": "C", "Ä": "A", "Ë": "E", "Ï": "I", "Ö": "O", "Ü": "U", "À": "A", "È": "E", "Ì": "I", "Ò": "O", "Ù": "U"
+            'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ã': 'a', 'õ': 'o', 'â': 'a', 'ê': 'e', 'î': 'i', 'ô': 'o', 'û': 'u', 'ç': 'c', 'ä': 'a', 'ë': 'e', 'ï': 'i', 'ö': 'o', 'ü': 'u', 'à': 'a', 'è': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u',
+            'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U', 'Ã': 'A', 'Õ': 'O', 'Â': 'A', 'Ê': 'E', 'Î': 'I', 'Ô': 'O', 'Û': 'U', 'Ç': 'C', 'Ä': 'A', 'Ë': 'E', 'Ï': 'I', 'Ö': 'O', 'Ü': 'U', 'À': 'A', 'È': 'E', 'Ì': 'I', 'Ò': 'O', 'Ù': 'U'
         };
         let r = '';
         for (let i = 0; i < s.length; i++) {
@@ -34,28 +34,26 @@ export class Utils {
     }
 
     static getQueryStringParameterByName(name: string) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
             results = regex.exec(location.search);
-        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
     static toCamelCase(s: string) {
-        return s.replace(/^([A-Z])|\s(\w)/g, function (match, p1, p2, offset) {
+        return s.replace(/^([A-Z])|\s(\w)/g, (match, p1, p2, offset) => {
             if (p2) return p2.toUpperCase();
             return p1.toLowerCase();
         });
     }
 
     static toPascalCase(s: string) {
-        //s = s.replace(/(\w)(\w*)/g,
-        //    function (g0, g1, g2) { return g1.toUpperCase() + g2.toLowerCase(); });
-        return s.replace(/^./, function (str) { return str.toUpperCase(); });
+        return s.replace(/^./, (s1) => s1.toUpperCase());
     }
 
     static validaCnpj(s) {
         var i;
-        var l = "";
+        var l = '';
         for (i = 0; i < s.length; i++) if (!isNaN(s.charAt(i))) l += s.charAt(i);
         s = l;
         if (s.length != 14) return false;

@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {Location, Router, RouteParams} from 'angular2/router';
+import {Location, Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Contact} from './contact';
 import {ContactService} from './contact.service';
@@ -7,7 +7,7 @@ import {ContactService} from './contact.service';
 
 @Component({
     selector: 'contact',
-    directives: [TAB_DIRECTIVES],
+    directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: [ContactService],
     templateUrl: './app/contacts/contact.component.html'
 })
@@ -21,6 +21,8 @@ export class ContactComponent implements OnInit {
     currentTab = this.rootTab;   
     contact: Contact = { id: 0, name: '', phone: '', email: '' };
     
+    submitted = true;
+    
     constructor(private _contactService: ContactService, private _router: Router, private _location: Location, private _routeParams: RouteParams) { }
     
     ngOnInit() {
@@ -30,6 +32,11 @@ export class ContactComponent implements OnInit {
 
         this.setTabsFromRoute();
     }
+    
+    onSubmit() { 
+        this._contactService.saveContact(this.contact).then(r => this.submitted = r); 
+    }
+
     
     setTabsFromRoute() {
         let tab = this._routeParams.get('tab') || this.rootTab;
