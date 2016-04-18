@@ -1,0 +1,30 @@
+<h1>Contact Component {{ contact.id }}</h1>
+<h3>{{ contact.name }}</h3>
+<h5>{{ contact.email }} {{ contact.phone }}</h5>
+<tabset>
+    <tab (select)="tabOnSelected('profile')" [active]="tabs.profile" heading="Profile">Justified content</tab>
+    <tab (select)="tabOnSelected('photo')" [active]="tabs.photo" heading="Photo">Short Labeled Justified content</tab>
+    <tab (select)="tabOnSelected('address')" [active]="tabs.address" heading="Address">Long Labeled Justified content</tab>
+</tabset>
+<form #form="ngForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" [(ngModel)]="contact.name" required ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="Name">
+    <span [hidden]="name.valid || name.pristine" class="help-inline">Name is required</span>
+  </div>
+  
+  <!--<input type="text" class="form-control" required
+          [(ngModel)]="model.name"
+            ngControl="name"  #name="ngForm" >-->
+  
+  
+  <div class="form-group">
+    <label for="email">E-mail</label>
+    <input type="email" [(ngModel)]="contact.email" email class="form-control" id="email" placeholder="E-mail">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="tel" [(ngModel)]="contact.phone" class="form-control" id="phone" placeholder="Phone">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

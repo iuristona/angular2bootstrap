@@ -9,17 +9,7 @@ import {ContactService} from './contact.service';
     selector: 'contact',
     directives: [TAB_DIRECTIVES],
     providers: [ContactService],
-    template: `
-    
-<h1>Contact Component {{ contact.id }}</h1>
-<h3>{{ contact.name }}</h3>
-<h5>{{ contact.email }} {{ contact.phone }}</h5>
-<tabset>
-    <tab (select)="tabOnSelected('profile')" [active]="tabs.profile" heading="Profile">Justified content</tab>
-    <tab (select)="tabOnSelected('photo')" [active]="tabs.photo" heading="Photo">Short Labeled Justified content</tab>
-    <tab (select)="tabOnSelected('address')" [active]="tabs.address" heading="Address">Long Labeled Justified content</tab>
-</tabset>
-    `
+    templateUrl: './app/contacts/contact.component.html'
 })
 export class ContactComponent implements OnInit { 
     tabs = {
