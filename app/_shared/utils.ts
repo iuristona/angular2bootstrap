@@ -1,3 +1,7 @@
+import * as moment_ from 'moment';
+
+export const moment: moment.MomentStatic = (<any>moment_)['default'] || moment_;
+
 export class Utils {
 
     static orderBy<T>(list: T[], keyOf: (item: T) => any): T[] {

@@ -2,8 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {UtilsService} from './../_shared/utils.service';
-import * as moment_ from 'moment';
-const moment: moment.MomentStatic = (<any>moment_)['default'] || moment_;
+import {moment} from './../_shared/utils';
 
 type Status = 'fixed' | 'static' | 'default';
 
@@ -17,18 +16,22 @@ type Status = 'fixed' | 'static' | 'default';
 export class NavbarComponent implements OnInit {
     
     currentStatus: Status = 'static';
-    today: string = '';
+    today: string = this.todayString;
 
     constructor(private _utils: UtilsService) { }
     
     ngOnInit() {
         setInterval(() => {
-            this.today = moment(new Date()).format('dddd, DD [de] MMMM [de] YYYY HH:mm:ss');
+            this.today = this.todayString;
         }, 1000);
     }
     
+    get todayString() {
+        return moment(new Date()).format('dddd, DD [de] MMMM [de] YYYY HH:mm:ss');
+    }
+    
     changeNavbar(status: Status) {
-        this.currentStatus = status;      
+        this.currentStatus = status;
     }
 
     isActive(linkParams: any[]) {
