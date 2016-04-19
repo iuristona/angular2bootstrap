@@ -6,7 +6,7 @@
       <h4>{{ contact.email }}</h4>
     </tab>
     <tab (select)="tabOnSelected('address')" [active]="tabs.address" heading="Address">
-      <h4>{{ contact.phone }}</h4>
+      <h4>{{ contact.phone | phone }}</h4>
     </tab>
     <tab (select)="tabOnSelected('photo')" [active]="tabs.photo" heading="Photo">
       <div class="container">

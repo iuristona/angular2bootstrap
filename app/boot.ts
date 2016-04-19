@@ -16,3 +16,7 @@ bootstrap(AppComponent, [
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
     provide(APP_BASE_HREF, { useValue: '/' }),
 ]);
+
+
+
+//https://auth0.com/blog/2015/11/10/introducing-angular2-jwt-a-library-for-angular2-authentication/

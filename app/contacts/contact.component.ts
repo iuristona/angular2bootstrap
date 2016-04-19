@@ -5,12 +5,14 @@ import {Contact} from './contact';
 import {ContactService} from './contact.service';
 import {PhoneMask} from './../_shared/phonemask.directive';
 import {InputMask} from './../_shared/inputmask.directive';
+import {PhonePipe} from './../_shared/phone.pipe';
 
 
 @Component({
     selector: 'contact',
     directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES, PhoneMask, InputMask],
     providers: [ContactService],
+    pipes: [PhonePipe],
     templateUrl: './app/contacts/contact.component.html'
 })
 export class ContactComponent implements OnInit { 
@@ -20,7 +22,7 @@ export class ContactComponent implements OnInit {
         address: false
     };
     rootTab = 'profile';    
-    currentTab = this.rootTab;   
+    currentTab = this.rootTab;
     contact: Contact = { id: 0, name: '', phone: '', email: '' };
     
     submitted = true;
