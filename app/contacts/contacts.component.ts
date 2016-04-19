@@ -2,18 +2,35 @@ import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {ContactService} from './contact.service';
 import {Contact} from './contact';
+import {PhonePipe} from './../_shared/phone.pipe';
 
 
 @Component({
     selector: 'contacts',
     directives: [ROUTER_DIRECTIVES], 
     providers: [ContactService],
-    template: `<h1>Contacts Component</h1><a [routerLink]="['Contact', {id: 1019}]">Contact</a>
+    pipes: [PhonePipe],
+    template: `   
+<h1>Contacts Component</h1>
     
-    <ul>
-        <li *ngFor="#contact of contacts"><a [routerLink]="['Contact', {id: contact.id}]">{{contact.name}}</a></li>
-    </ul>
-    
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="#contact of contacts">
+      <th scope="row">{{ contact.id }}</th>
+      <td><a [routerLink]="['Contact', {id: contact.id}]">{{contact.name}}</a></td>
+      <td>{{ contact.phone | phone }}</td>
+      <td>{{ contact.email }}</td>
+    </tr>
+  </tbody>
+</table>
     
     `
 })
