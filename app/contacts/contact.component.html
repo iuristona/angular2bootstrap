@@ -24,11 +24,6 @@
         <input type="text" [(ngModel)]="contact.name" required ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="Name">
         <span [hidden]="name.valid || name.pristine" class="help-inline">Name is required</span>
       </div>
-
-      <!--<input type="text" class="form-control" required
-          [(ngModel)]="model.name"
-            ngControl="name"  #name="ngForm" >-->
-
       <div class="form-group">
         <label for="email">E-mail</label>
         <input type="email" [(ngModel)]="contact.email" email class="form-control" id="email" placeholder="E-mail">
@@ -36,8 +31,12 @@
       <div class="form-group">
         <label for="phone">Phone</label>
         <input type="tel" [(ngModel)]="contact.phone" class="form-control" phonemask id="phone" placeholder="Phone">
+        <!--
+          modelo usando uma máscara genérica
+          <input type="tel" [(ngModel)]="contact.phone" class="form-control" [inputmask]="{ mask: ['(19) 9999-9999', '(19) 99999-9999'], definitions: {'1': { validator: '[1-9]', cardinality: 1 } } }" id="phone" placeholder="Phone">
+        -->
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid || clicked">Submit</button>
     </form>
   </div>
 </div>

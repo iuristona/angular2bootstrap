@@ -4,11 +4,12 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Contact} from './contact';
 import {ContactService} from './contact.service';
 import {PhoneMask} from './../_shared/phonemask.directive';
+import {InputMask} from './../_shared/inputmask.directive';
 
 
 @Component({
     selector: 'contact',
-    directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES, PhoneMask],
+    directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES, PhoneMask, InputMask],
     providers: [ContactService],
     templateUrl: './app/contacts/contact.component.html'
 })
