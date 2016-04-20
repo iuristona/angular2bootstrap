@@ -23,7 +23,7 @@ import {PhonePipe} from './../_shared/phone.pipe';
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="#contact of contacts">
+    <tr *ngFor="#contact of contacts | async">
       <th scope="row">{{ contact.id }}</th>
       <td><a [routerLink]="['Contact', {id: contact.id}]">{{contact.name}}</a></td>
       <td>{{ contact.phone | phone }}</td>
@@ -36,15 +36,18 @@ import {PhonePipe} from './../_shared/phone.pipe';
 })
 export class ContactsComponent implements OnInit {
     
-    contacts: Contact[] = [];
+    //contacts: Contact[] = [];
+    contacts: Promise<Contact[]>;
      
     constructor(private _contactService: ContactService) { }
     
     ngOnInit() {
-        this.loadContacts();
+        //this.loadContacts();
+        
+        this.contacts = this._contactService.getContacts();
     }
     
-    loadContacts() {
-        this._contactService.getContacts().then(contacts => this.contacts = contacts);
-    }
+    // loadContacts() {
+    //     this._contactService.getContacts().then(contacts => this.contacts = contacts);
+    // }
 }

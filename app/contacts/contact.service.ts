@@ -11,21 +11,24 @@ export class ContactService {
     }
 
     getContacts() {
-        return Promise.resolve(CONTACTS);
+        //return Promise.resolve(CONTACTS);
+        
+        return new Promise<Contact[]>((resolve, reject) => {
+            setTimeout(function() {
+              resolve(CONTACTS);
+            }, 1000);
+        });
     }
 
     public saveContact(contact: Contact) {
-
-        //let i = CONTACTS.findIndex(n => n.id == contact.id);
-        //this.contacts[i] = contact;
       
-        return new Promise<boolean>((resolve, reject) => {
-            setTimeout(function() {
-              resolve(true);
-            }, 5000);
-        });
+        // return new Promise<boolean>((resolve, reject) => {
+        //     setTimeout(function() {
+        //       resolve(true);
+        //     }, 500);
+        // });
       
-        //return Promise.resolve(true);
+        return Promise.resolve(true);
     }
     
     // private _contacts = [];
