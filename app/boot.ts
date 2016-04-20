@@ -1,4 +1,4 @@
-import {bootstrap}    from 'angular2/platform/browser';
+import {bootstrap} from 'angular2/platform/browser';
 import {provide} from 'angular2/core';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from 'angular2/router';
 import {AppComponent} from './app.component';
@@ -14,7 +14,7 @@ moment.locale('pt-br');
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS, 
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
-    provide(APP_BASE_HREF, { useValue: '/' }),
+    provide(APP_BASE_HREF, { useValue: '/' })
 ]);
 
 

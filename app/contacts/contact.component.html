@@ -18,19 +18,26 @@
 <button class="btn btn-default" (click)="submitted=false">Edit</button>
 <div class="container">
   <div [hidden]="submitted">
-    <form #form="ngForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div class="form-group" *ngIf="true" [class.has-error]="!name.valid">
         <label for="name">Name</label>
-        <input type="text" [(ngModel)]="contact.name" required ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="Name">
-        <span [hidden]="name.valid || name.pristine" class="help-inline">Name is required</span>
+        <input type="text" [(ngModel)]="contact.name" required minlength="5" ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="Name">
+        <div *ngIf="name.dirty && !name.valid">
+          <span *ngIf="name.errors.required" class="help-block">Name is required</span>
+          <span *ngIf="name.errors.minlength" class="help-block">Name must have at least {{name.errors.minlength.requiredLength}}</span>
+        </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="true" [class.has-error]="!email.valid">
         <label for="email">E-mail</label>
-        <input type="email" [(ngModel)]="contact.email" email class="form-control" id="email" placeholder="E-mail">
+        <input type="email" [(ngModel)]="contact.email" email required ngControl="email" #email="ngForm" class="form-control" id="email" placeholder="E-mail">
+        <div *ngIf="email.dirty && !email.valid">
+          <span *ngIf="email.errors.required" class="help-block">E-mail is required</span>
+          <span *ngIf="email.errors.email" class="help-block">E-mail must be a valid email</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="phone">Phone</label>
-        <input type="tel" [(ngModel)]="contact.phone" class="form-control" phonemask id="phone" placeholder="Phone">
+        <input type="tel" [(ngModel)]="contact.phone" ngControl="phone" #phone="ngForm" class="form-control" phonemask id="phone" placeholder="Phone">
         <!--
           modelo usando uma máscara genérica
           <input type="tel" [(ngModel)]="contact.phone" class="form-control" [inputmask]="{ mask: ['(19) 9999-9999', '(19) 99999-9999'], definitions: {'1': { validator: '[1-9]', cardinality: 1 } } }" id="phone" placeholder="Phone">

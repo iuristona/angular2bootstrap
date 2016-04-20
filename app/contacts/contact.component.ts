@@ -6,11 +6,12 @@ import {ContactService} from './contact.service';
 import {PhoneMask} from './../_shared/phonemask.directive';
 import {InputMask} from './../_shared/inputmask.directive';
 import {PhonePipe} from './../_shared/phone.pipe';
+import {EmailValidator} from './../_shared/email.validator';
 
 
 @Component({
     selector: 'contact',
-    directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES, PhoneMask, InputMask],
+    directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES, PhoneMask, InputMask, EmailValidator],
     providers: [ContactService],
     pipes: [PhonePipe],
     templateUrl: './app/contacts/contact.component.html'
@@ -37,10 +38,10 @@ export class ContactComponent implements OnInit {
         this.setTabsFromRoute();
     }
     
-    onSubmit() { 
+    onSubmit(form) {
+        window['theForm'] = form; 
         this._contactService.saveContact(this.contact).then(r => this.submitted = r); 
     }
-
     
     setTabsFromRoute() {
         let tab = this._routeParams.get('tab') || this.rootTab;

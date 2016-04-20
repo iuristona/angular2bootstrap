@@ -55,7 +55,12 @@ export class Utils {
         return s.replace(/^./, (s1) => s1.toUpperCase());
     }
 
-    static validaCnpj(s) {
+    static validateEmail(s) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(s);
+    }
+
+    static validateCnpj(s) {
         var i;
         var l = '';
         for (i = 0; i < s.length; i++) if (!isNaN(s.charAt(i))) l += s.charAt(i);
@@ -77,7 +82,7 @@ export class Utils {
         return true;
     }
 
-    static validaCpf(s) {
+    static validateCpf(s) {
         var i;
         var l = '';
         for (i = 0; i < s.length; i++) if (!isNaN(s.charAt(i))) l += s.charAt(i);
