@@ -8,6 +8,7 @@ import {CustomValidators} from './custom.validators';
 })
 export class EmailValidator implements Validator {
     validate(c: Control): { [key: string]: any } {
+        console.log(c);
         return CustomValidators.email(c);     
     }
 }

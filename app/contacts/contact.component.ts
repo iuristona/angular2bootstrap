@@ -33,7 +33,7 @@ export class ContactComponent implements OnInit {
     ngOnInit() {
         let id = parseInt(this._routeParams.get('id'));
         this.contact.id = id;
-        this._contactService.getContact(id).then(contact => this.contact = contact);
+        this._contactService.getContact(id).then(contact => this.contact = contact || this.contact);
 
         this.setTabsFromRoute();
     }

@@ -14,7 +14,7 @@ export class ContactService {
         //return Promise.resolve(CONTACTS);
         
         return new Promise<Contact[]>((resolve, reject) => {
-            setTimeout(function() {
+            setTimeout(() => {
               resolve(CONTACTS);
             }, 1000);
         });
