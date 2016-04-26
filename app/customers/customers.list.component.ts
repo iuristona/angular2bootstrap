@@ -1,13 +1,24 @@
 import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {CustomersService} from './customers.service';
-import {Utils} from '../_shared/utils';
+import {Utils, moment} from '../_shared/utils';
+
 import * as _ from 'underscore';
 
 @Component({
     selector: 'customers',
     directives: [ROUTER_DIRECTIVES], 
     providers: [CustomersService],
+    styles: [`
+.btn-group-xs>.btn, .btn-xs {
+    padding: 4px;
+    font-size: 9px;
+    border-radius: 1px;
+}
+.glyphicon {
+    top: 0px;
+}
+`],
     pipes: [],
     template: `   
 <div (keydown.space)="keyPress($event)">
@@ -19,39 +30,62 @@ import * as _ from 'underscore';
 <table class="table table-condensed" >
   <thead>
     <tr>
-      <th>#</th>
-      
+      <th style="width: 10px"></th>
+      <th>#</th>      
       <th>
         <a role="button" (click)="sortBy('CompanyName')">CompanyName</a>
         <span *ngIf="reverse" style="font-size: 10px;" class="glyphicon glyphicon-chevron-up"></span>
         <span *ngIf="!reverse" style="font-size: 10px;" class="glyphicon glyphicon-chevron-down"></span>
       </th>
-
       <th>ContactName</th>
       <th>ContactTitle</th>
       <th>City</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="#m of list" (click)="selectItem(m, $index)" [ngClass]="{info: m.CustomerID == selected?.CustomerID}">
+    <template ngFor #m [ngForOf]="list">
+    <tr (click)="selectItem(m, $index)" [ngClass]="{info: m.CustomerID == selected?.CustomerID}">
+      <td><div (click)="expandItem(m); $event.stopPropagation()" class="btn btn-default btn-xs"><span class="glyphicon  {{m.expanded ? 'glyphicon-minus' : 'glyphicon-plus'}}"></span></div></td>
       <th scope="row">{{ m.CustomerID }}</th>
       <td>{{ m.CompanyName }}</td>
       <td>{{ m.ContactName }}</td>
       <td>{{ m.ContactTitle }}</td>
       <td>{{ m.City }}</td>
     </tr>
+    <tr *ngIf="m.expanded">
+        <td colspan="6">
+            <table *ngIf="m.Orders" class="table table-striped table-condensed table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>OrderDate</th>
+                        <th>Freight</th>
+                        <th>ShipName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="#order of m.Orders">
+                        <td>{{order.OrderID}}</td>
+                        <td>{{parseDate(order.OrderDate) | date:'dd/MM/yyyy' }}</td>
+                        <td>{{parseFloat(order.Freight)  }}</td>
+                        <td>{{order.ShipName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    </template>
   </tbody>
   <tfoot>
     <tr>
       <td colspan="6">{{ list.length }}</td>
     </tr>
   </tfoot>
-
 </table>
-
 <ul class="pagination">
   <li [ngClass]="{disabled: page == 1}"><a (click)="changePage(page-1)" role="button">&laquo;</a></li>
-  
+  <li *ngFor="#n of foo" [ngClass]="{active: n == page}"><a (click)="changePage(n)" role="button">{{ n }}</a></li>
   <li [ngClass]="{disabled: page == totalPages}"><a (click)="changePage(page+1)" role="button">&raquo;</a></li>
 </ul>
 </div>
@@ -70,8 +104,18 @@ export class CustomersListComponent implements OnInit {
     selected = {};
     selectedIndex = -1;
     s = '';
+    
+    foo = [];
      
     constructor(private _service: CustomersService) { }
+    
+    parseFloat(s) {
+        return parseFloat(s);
+    }
+    
+    parseDate(s) {
+        return new Date(s);
+    }
     
     ngOnInit() {
         this.loadData();        
@@ -94,7 +138,9 @@ export class CustomersListComponent implements OnInit {
                 this.totalPages = (this.count / this.pageSize) | 0; // | 0 pega apenas a parte inteira do número
                 
                 this.search(this.s);
-
+                
+                console.log(this.foo);
+                this.foo = Array.from({ length: this.totalPages }, (v, i) => i + 1);
             },
             error => { console.log(error) }
         );
@@ -138,6 +184,10 @@ export class CustomersListComponent implements OnInit {
         if (this.reverse) {
             this.list = this.list.reverse();
         }
+    }
+    
+    expandItem(item) {
+        item.expanded = !item.expanded;
     }
     
     keyPress(event) {
