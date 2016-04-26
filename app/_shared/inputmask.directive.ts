@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input} from 'angular2/core';
+import {Directive, ElementRef} from 'angular2/core';
 declare var jQuery;
 
 @Directive({
