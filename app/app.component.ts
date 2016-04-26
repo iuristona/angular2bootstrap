@@ -7,13 +7,16 @@ import {ContactsRootComponent} from './contacts/contacts.root.component';
 
 declare var System;
 
-@RouteConfig([
+let configs = [
     { path: '/', name: 'Home', component: HomeComponent, useAsDefault: true },
     //{ path: '/about', name: 'About', component: AboutComponent },
     new AsyncRoute({path: '/about', name: 'About', loader: () => System.import('/app/about/about.component').then(m => m.AboutComponent)}),
+    new AsyncRoute({path: '/pessoas/...', name: 'Pessoas', loader: () => System.import('/app/pessoas/pessoas.component').then(m => m.PessoasComponent)}),
     { path: '/contacts/...', name: 'Contacts', component: ContactsRootComponent },
     { path: '/**', redirectTo: ['Home'] }
-])
+];
+
+@RouteConfig(configs)
 @Component({
     selector: 'app',
     directives: [ROUTER_DIRECTIVES, NavbarComponent, HomeComponent],
