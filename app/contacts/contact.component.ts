@@ -39,7 +39,6 @@ export class ContactComponent implements OnInit {
     }
     
     onSubmit(form) {
-        window['theForm'] = form; 
         this._contactService.saveContact(this.contact).then(r => this.submitted = r); 
     }
     
