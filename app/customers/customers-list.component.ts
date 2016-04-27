@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {CustomersService} from './customers.service';
 import {Utils, moment} from '../_shared/utils';
-import {KeyEventsPlugin} from 'angular2/src/platform/dom/events/key_events';
+//import {KeyEventsPlugin} from 'angular2/src/platform/dom/events/key_events';
 
 import * as _ from 'underscore';
 
@@ -131,30 +131,29 @@ export class CustomersListComponent implements OnInit {
     }
     
     keyPress(event) {
-        console.log(event);
-        KeyEventsPlugin.call
+        console.log(event);        
     }
     
     onKeyDown(event) {
-        let key = KeyEventsPlugin.getEventFullKey(event);
-        this.lastKey = key;
+        this.lastKey = event.which;
+        let key = event.which;//KeyEventsPlugin.getEventFullKey(event);
         event.preventDefault();
         
         switch (key) {
-            case 'arrowup':
+            case 38: // 'arrowup':
                 this.selectedIndex--;
                 this.selectItem(this.list[this.selectedIndex], this.selectedIndex);
                 break;
-            case 'arrowdown':
+            case 40: //'arrowdown':
                 this.selectedIndex++;
                 this.selectItem(this.list[this.selectedIndex], this.selectedIndex);
                 break;
-            case 'arrowleft':
+            case 37: //'arrowleft':
                 if (this.selected) {
                     this.selected.expanded = false;
                 }
                 break;
-            case 'arrowright':
+            case 39: //'arrowright':
                 if (this.selected) {
                     this.selected.expanded = true;
                 }
