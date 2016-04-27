@@ -7,7 +7,7 @@ import {PhonePipe} from './../_shared/phone.pipe';
 
 @Component({
     selector: 'contacts',
-    directives: [ROUTER_DIRECTIVES], 
+    directives: [ROUTER_DIRECTIVES],
     providers: [ContactService],
     pipes: [PhonePipe],
     template: `   

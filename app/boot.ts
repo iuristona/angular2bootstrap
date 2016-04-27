@@ -25,5 +25,12 @@ bootstrap(AppComponent, [
 ]);
 
 
+//typings install --save --ambient systemjs -source:dt
+
 
 //https://auth0.com/blog/2015/11/10/introducing-angular2-jwt-a-library-for-angular2-authentication/
+
+//http://www.mockapi.io/
+
+//curso online
+//https://www.udemy.com/the-complete-guide-to-angular-2/?couponCode=YOUTUBE_2

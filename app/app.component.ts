@@ -5,19 +5,20 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {HomeComponent} from './home/home.component';
 import {ContactsRootComponent} from './contacts/contacts.root.component';
 
-declare var System;
+//declare var System;
 
-let configs = [
+@RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent, useAsDefault: true },
-    //{ path: '/about', name: 'About', component: AboutComponent },
     new AsyncRoute({path: '/about', name: 'About', loader: () => System.import('/app/about/about.component').then(m => m.AboutComponent)}),
     new AsyncRoute({path: '/pessoas/...', name: 'Pessoas', loader: () => System.import('/app/pessoas/pessoas.component').then(m => m.PessoasComponent)}),
-    new AsyncRoute({path: '/customers/...', name: 'Customers', loader: () => System.import('/app/customers/customers.component').then(m => m.CustomersComponent)}),
+    new AsyncRoute({path: '/customers/...', name: 'Customers', loader: () => System.import('/app/customers/customers.component').then(m => {
+            console.log('customers loaded');
+            return m.CustomersComponent;
+        })
+    }),
     { path: '/contacts/...', name: 'Contacts', component: ContactsRootComponent },
     { path: '/**', redirectTo: ['Home'] }
-];
-
-@RouteConfig(configs)
+])
 @Component({
     selector: 'app',
     directives: [ROUTER_DIRECTIVES, NavbarComponent, HomeComponent],
