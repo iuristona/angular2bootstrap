@@ -2,14 +2,16 @@ import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {CustomersService} from './customers.service';
 import {Utils, moment} from '../_shared/utils';
+import {StringSafeDatePipe} from './../_shared/custom.pipes';
 //import {KeyEventsPlugin} from 'angular2/src/platform/dom/events/key_events';
 
-import * as _ from 'underscore';
+//import * as _ from 'underscore';
 
 @Component({
     selector: 'customers',
     directives: [ROUTER_DIRECTIVES], 
     providers: [CustomersService],
+    pipes: [StringSafeDatePipe],
     templateUrl: './app/customers/customers-list.component.html',
     styles: [`
         .btn-group-xs>.btn, .btn-xs {
@@ -19,10 +21,7 @@ import * as _ from 'underscore';
         }
         .glyphicon {
             top: 0px;
-        }, 
-        table {
-            outline: none;
-        }
+        }        
         table:focus {
             outline: 0px;
         }
@@ -34,15 +33,14 @@ export class CustomersListComponent implements OnInit {
     page = 1;
     pageSize = 10;
     pageSizes = [5, 10, 15, 20];
+    pages = [];
     count = 0;
     totalPages = 0;    
     list = [];
-    listo = [];
-    selected = { expanded: false };
+    listOrigin = [];
+    selected: any = {};
     selectedIndex = -1;   
-    pages = [];
-    
-    s = '';
+    searchString = '';
     
     lastKey: string = '(none)';
 
@@ -69,23 +67,21 @@ export class CustomersListComponent implements OnInit {
             $expand: 'Orders',
             $select: 'CustomerID,CompanyName,ContactName,ContactTitle,City,Orders/OrderID,Orders/OrderDate,Orders/Freight,Orders/ShipName'
         }).map(n => n.json()).subscribe(
-            d => { 
-                console.log(d);
-                this.listo = d.value;
-                this.list = this.listo;
+            result => { 
+                this.listOrigin = result.value;
+                this.list = this.listOrigin;
                 
-                this.count = d['odata.count'];
+                this.count = result['odata.count'];
                 this.totalPages = (this.count / this.pageSize) | 0; // | 0 pega apenas a parte inteira do número
                 
-                this.search(this.s);
+                this.search(this.searchString);
                 
-                console.log(this.pages);
                 this.pages = Array.from({ length: this.totalPages }, (v, i) => i + 1);
             },
-            error => { console.log(error) }
+            error => { 
+                console.log(error); 
+            }
         );
-        
-        //this.search('b');
     }
     
     changePageSize(event) {
@@ -112,10 +108,9 @@ export class CustomersListComponent implements OnInit {
     }
     
     search(s: string) {
-        this.s = s;
-        this.list = this.listo.filter(n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);        
-        //this.list = _.filter(this.listo, n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);
-        
+        this.searchString = s;
+        this.list = this.listOrigin.filter(n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);        
+        //this.list = _.filter(this.listOrigin, n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);        
     }
     
     sortBy(predicate) {
@@ -124,6 +119,7 @@ export class CustomersListComponent implements OnInit {
         if (this.reverse) {
             this.list = this.list.reverse();
         }
+        this.selectedIndex = this.list.findIndex(n => n === this.selected);
     }
     
     expandItem(item) {
@@ -136,11 +132,11 @@ export class CustomersListComponent implements OnInit {
     
     onKeyDown(event) {
         this.lastKey = event.which;
-        let key = event.which;//KeyEventsPlugin.getEventFullKey(event);
+        let key = event.which; 
         event.preventDefault();
         
         switch (key) {
-            case 38: // 'arrowup':
+            case 38: //'arrowup':
                 this.selectedIndex--;
                 this.selectItem(this.list[this.selectedIndex], this.selectedIndex);
                 break;
@@ -157,15 +153,7 @@ export class CustomersListComponent implements OnInit {
                 if (this.selected) {
                     this.selected.expanded = true;
                 }
-
-                break;
-        
-            default:
                 break;
         }
     }
-    
-    // loadContacts() {
-    //     this._contactService.getContacts().then(contacts => this.contacts = contacts);
-    // }
 }

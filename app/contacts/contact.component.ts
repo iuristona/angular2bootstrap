@@ -5,7 +5,7 @@ import {Contact} from './contact';
 import {ContactService} from './contact.service';
 import {PhoneMask} from './../_shared/phonemask.directive';
 import {InputMask} from './../_shared/inputmask.directive';
-import {PhonePipe} from './../_shared/phone.pipe';
+import {PhonePipe} from './../_shared/custom.pipes';
 import {EmailValidator} from './../_shared/email.validator';
 
 

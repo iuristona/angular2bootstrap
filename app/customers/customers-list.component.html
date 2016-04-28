@@ -43,8 +43,8 @@
                 <tbody>
                     <tr *ngFor="#order of m.Orders">
                         <td>{{ order.OrderID }} </td>
-                        <td>{{ parseDate(order.OrderDate) | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ parseFloat(order.Freight) | number }}</td>
+                        <td>{{ order.OrderDate | date:'dd/MM/yyyy' }}</td>
+                        <td style="text-align: right">{{ parseFloat(order.Freight) | number:'1.2-2' }}</td>
                         <td>{{ order.ShipName }}</td>
                     </tr>
                 </tbody>

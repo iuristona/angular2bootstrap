@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {ContactService} from './contact.service';
 import {Contact} from './contact';
-import {PhonePipe} from './../_shared/phone.pipe';
+import {PhonePipe} from './../_shared/custom.pipes';
 
 
 @Component({
