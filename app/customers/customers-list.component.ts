@@ -11,7 +11,7 @@ import {StringSafeDatePipe} from '../_shared/custom.pipes';
 
 @Component({
     selector: 'customers',
-    directives: [ROUTER_DIRECTIVES], 
+    directives: [ROUTER_DIRECTIVES],
     providers: [CustomersService],
     pipes: [StringSafeDatePipe],
     moduleId: __moduleName,
@@ -25,44 +25,44 @@ import {StringSafeDatePipe} from '../_shared/custom.pipes';
         }
         .glyphicon {
             top: 0px;
-        }        
+        }
         table:focus {
             outline: 0px;
         }
-    `]    
+    `]
 })
 export class CustomersListComponent implements OnInit {
-    
+
     reverse = false;
     page = 1;
     pageSize = 10;
     pageSizes = [5, 10, 15, 20];
     pages = [];
     count = 0;
-    totalPages = 0;    
+    totalPages = 0;
     list = [];
     listOrigin = [];
     selected: any = {};
-    selectedIndex = -1;   
+    selectedIndex = -1;
     searchString = '';
-    
+
     lastKey: string = '(none)';
 
-     
+
     constructor(private _service: CustomersService) { }
-    
+
     parseFloat(s) {
         return parseFloat(s);
     }
-    
+
     parseDate(s) {
         return Date.parse(s);// new Date(s);
     }
-    
+
     ngOnInit() {
-        this.loadData();        
+        this.loadData();
     }
-    
+
     loadData() {
         this._service.getAll({
             $inlinecount: 'allpages',
@@ -73,26 +73,26 @@ export class CustomersListComponent implements OnInit {
         })
         //.map(n => n.json())
         .subscribe(
-            result => { 
+            result => {
                 this.listOrigin = result.value;
                 this.list = this.listOrigin;
-                
+
                 this.count = result['odata.count'];
-                this.totalPages = (this.count / this.pageSize) | 0; // | 0 pega apenas a parte inteira do número                
-                this.search(this.searchString);                
+                this.totalPages = (this.count / this.pageSize) | 0; // | 0 pega apenas a parte inteira do número
+                this.search(this.searchString);
                 this.pages = Array.from({ length: this.totalPages }, (v, i) => i + 1);
             },
-            error => { 
-                console.log(error); 
+            error => {
+                console.log(error);
             }
         );
     }
-    
+
     changePageSize(event) {
         this.pageSize = event;
         this.loadData();
     }
-    
+
     changePage(n) {
         if (n < 1 || n > this.totalPages)
             return;
@@ -110,35 +110,35 @@ export class CustomersListComponent implements OnInit {
             this.selectedIndex = index;
         }
     }
-    
+
     search(s: string) {
         this.searchString = s;
-        this.list = this.listOrigin.filter(n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);        
-        //this.list = _.filter(this.listOrigin, n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);        
+        this.list = this.listOrigin.filter(n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);
+        //this.list = _.filter(this.listOrigin, n => n.CompanyName.toLowerCase().indexOf(s.toLowerCase()) > -1);
     }
-    
+
     sortBy(predicate) {
         this.reverse = !this.reverse;
-        this.list = Utils.orderBy(this.list, n => n[predicate]);        
+        this.list = Utils.orderBy(this.list, n => n[predicate]);
         if (this.reverse) {
             this.list = this.list.reverse();
         }
         this.selectedIndex = this.list.findIndex(n => n === this.selected);
     }
-    
+
     expandItem(item) {
         item.expanded = !item.expanded;
     }
-    
+
     keyPress(event) {
-        console.log(event);        
+        console.log(event);
     }
-    
+
     onKeyDown(event) {
         this.lastKey = event.which;
-        let key = event.which; 
+        let key = event.which;
         event.preventDefault();
-        
+
         switch (key) {
             case 38: //'arrowup':
                 this.selectedIndex--;
