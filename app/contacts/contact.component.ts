@@ -14,7 +14,9 @@ import {EmailValidator} from './../_shared/email.validator';
     directives: [TAB_DIRECTIVES, ROUTER_DIRECTIVES, PhoneMask, InputMask, EmailValidator],
     providers: [ContactService],
     pipes: [PhonePipe],
-    templateUrl: './app/contacts/contact.component.html'
+    moduleId: __moduleName,
+    templateUrl: 'contact.component.html'
+    //templateUrl: './app/contacts/contact.component.html'
 })
 export class ContactComponent implements OnInit { 
     tabs = {

@@ -1,5 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Http, Headers, URLSearchParams} from 'angular2/http';
+import {Observable} from 'rxjs/Observable';
+
 
 @Injectable()
 export class CustomersService {
@@ -16,19 +18,18 @@ export class CustomersService {
             search.set(key, params[key])
         }
         
-        var headers = new Headers();
+        let headers = new Headers();
         //headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.set('Accept', 'application/json, text/plain, */*');
-        
-        
-        let h = this._http.get('http://services.odata.org/Northwind/Northwind.svc/Customers', {
+                
+        return this._http.get('http://services.odata.org/Northwind/Northwind.svc/Customers', {
             headers: headers,
             search: search
-        });
-        return h;
-                
+        })
+        .map(n => n.json())
+        .catch(this.handleError);                
     }
-
+    
     public save(model: any) {
       
         // return new Promise<boolean>((resolve, reject) => {
@@ -38,6 +39,13 @@ export class CustomersService {
         // });
       
         return Promise.resolve(true);
+    }
+
+    private handleError(error: any) {
+        // In a real world app, we might send the error to remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
     
     // private _contacts = [];

@@ -5,6 +5,7 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, APP_BASE_HREF}
 import {AppComponent} from './app.component';
 import {moment} from './_shared/utils';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 //import {enableProdMode} from 'angular2/core';
 //enableProdMode();

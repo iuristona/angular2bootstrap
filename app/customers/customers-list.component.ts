@@ -2,8 +2,10 @@ import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {CustomersService} from './customers.service';
 import {Utils, moment} from '../_shared/utils';
-import {StringSafeDatePipe} from './../_shared/custom.pipes';
+import {StringSafeDatePipe} from '../_shared/custom.pipes';
 //import {KeyEventsPlugin} from 'angular2/src/platform/dom/events/key_events';
+
+
 
 //import * as _ from 'underscore';
 
@@ -12,7 +14,9 @@ import {StringSafeDatePipe} from './../_shared/custom.pipes';
     directives: [ROUTER_DIRECTIVES], 
     providers: [CustomersService],
     pipes: [StringSafeDatePipe],
-    templateUrl: './app/customers/customers-list.component.html',
+    moduleId: __moduleName,
+    templateUrl: 'customers-list.component.html',
+    //templateUrl: './app/customers/customers-list.component.html',
     styles: [`
         .btn-group-xs>.btn, .btn-xs {
             padding: 4px;
@@ -66,16 +70,16 @@ export class CustomersListComponent implements OnInit {
             $skip: (this.page - 1) * this.pageSize,
             $expand: 'Orders',
             $select: 'CustomerID,CompanyName,ContactName,ContactTitle,City,Orders/OrderID,Orders/OrderDate,Orders/Freight,Orders/ShipName'
-        }).map(n => n.json()).subscribe(
+        })
+        //.map(n => n.json())
+        .subscribe(
             result => { 
                 this.listOrigin = result.value;
                 this.list = this.listOrigin;
                 
                 this.count = result['odata.count'];
-                this.totalPages = (this.count / this.pageSize) | 0; // | 0 pega apenas a parte inteira do número
-                
-                this.search(this.searchString);
-                
+                this.totalPages = (this.count / this.pageSize) | 0; // | 0 pega apenas a parte inteira do número                
+                this.search(this.searchString);                
                 this.pages = Array.from({ length: this.totalPages }, (v, i) => i + 1);
             },
             error => { 
