@@ -1,5 +1,6 @@
 import {Component, OnInit} from 'angular2/core';
-import {Location, Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Contact} from './contact';
 import {ContactService} from './contact.service';
@@ -7,7 +8,6 @@ import {PhoneMask} from './../_shared/phonemask.directive';
 import {InputMask} from './../_shared/inputmask.directive';
 import {PhonePipe} from './../_shared/custom.pipes';
 import {EmailValidator} from './../_shared/email.validator';
-
 
 @Component({
     selector: 'contact',

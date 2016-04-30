@@ -2,7 +2,7 @@
 <h1>Pessoas Listagem</h1>
 
 <pre class="form-inline"><input type="text" [ngModel]="s" (ngModelChange)="search($event)" class="form-control" /> <select [ngModel]="pageSize" (ngModelChange)="changePageSize($event)" class="form-control">
-        <option *ngFor="#o of pageSizes" [value]="o">{{o}}</option>
+        <option *ngFor="let o of pageSizes" [value]="o">{{o}}</option>
     </select> Sorting predicate = {{predicate}}; reverse = {{reverse}} Page: {{page}} / {{totalPages}} aqui vai count {{count}} {{selected?.CustomerID}} {{selectedIndex}}</pre>
 <table class="table table-condensed" (keydown)="onKeyDown($event)" tabindex="0">
   <thead>
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <template ngFor #m [ngForOf]="list" #i="index">
+    <template ngFor let-m [ngForOf]="list" let-i="index">
     <tr (click)="selectItem(m, i)" [ngClass]="{info: m.CustomerID == selected?.CustomerID}">
       <td><div (click)="expandItem(m); $event.stopPropagation()" class="btn btn-default btn-xs"><span class="glyphicon  {{m.expanded ? 'glyphicon-minus' : 'glyphicon-plus'}}"></span></div></td>
       <th scope="row">{{ m.CustomerID }}</th>
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="#order of m.Orders">
+                    <tr *ngFor="let order of m.Orders">
                         <td>{{ order.OrderID }} </td>
                         <td>{{ order.OrderDate | date:'dd/MM/yyyy' }}</td>
                         <td style="text-align: right">{{ parseFloat(order.Freight) | number:'1.2-2' }}</td>
@@ -62,6 +62,6 @@
 </table>
 <ul class="pagination">
   <li [ngClass]="{disabled: page == 1}"><a (click)="changePage(page-1)" role="button">&laquo;</a></li>
-  <li *ngFor="#n of pages" [ngClass]="{active: n == page}"><a (click)="changePage(n)" role="button">{{ n }}</a></li>
+  <li *ngFor="let n of pages" [ngClass]="{active: n == page}"><a (click)="changePage(n)" role="button">{{ n }}</a></li>
   <li [ngClass]="{disabled: page == totalPages}"><a (click)="changePage(page+1)" role="button">&raquo;</a></li>
 </ul>

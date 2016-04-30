@@ -1,7 +1,8 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {provide} from 'angular2/core';
 import {HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http';
-import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from 'angular2/router';
+import {ROUTER_PROVIDERS} from 'angular2/router';
+import {LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from 'angular2/platform/common'
 import {AppComponent} from './app.component';
 import {moment} from './_shared/utils';
 import 'rxjs/add/operator/map';

@@ -21,7 +21,7 @@ import {PessoasService} from './pessoas.service';
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="#m of list | async">
+    <tr *ngFor="let m of list | async">
       <th scope="row">{{ m.id }}</th>
     </tr>
   </tbody>

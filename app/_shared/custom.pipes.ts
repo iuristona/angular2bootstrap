@@ -22,10 +22,10 @@ export class PhonePipe implements PipeTransform {
     name: 'date'
 })
 export class StringSafeDatePipe extends DatePipe {
-    transform(value: any, args: any[]): string {
+    transform(value: any, pattern?: string): string {
         value = typeof value === 'string' ?
             Date.parse(value) : value
-        return super.transform(value, args);
+        return super.transform(value, pattern);
     }
 }
 

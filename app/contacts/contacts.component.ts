@@ -23,7 +23,7 @@ import {PhonePipe} from './../_shared/custom.pipes';
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="#contact of contacts | async">
+    <tr *ngFor="let contact of contacts | async">
       <th scope="row">{{ contact.id }}</th>
       <td><a [routerLink]="['Contact', {id: contact.id}]">{{contact.name}}</a></td>
       <td>{{ contact.phone | phone }}</td>
