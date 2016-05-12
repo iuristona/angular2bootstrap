@@ -23,8 +23,8 @@
         <label for="name">Name</label>
         <input type="text" [(ngModel)]="contact.name" required minlength="5" ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="Name" [class.editing]="contact.id > 0">
         <div *ngIf="(contact.id > 0 || name.dirty) && !name.valid">
-          <span *ngIf="name.errors?.required" class="help-block">Name is required</span>
-          <span *ngIf="name.errors?.minlength" class="help-block">Name must have at least {{name.errors.minlength.requiredLength}}</span>
+          <span *ngIf="name.errors?.required" class="help-block help-block-error">Name is required</span>
+          <span *ngIf="name.errors?.minlength" class="help-block help-block-error">Name must have at least {{name.errors.minlength.requiredLength}}</span>
         </div>
       </div>
       <div class="form-group" *ngIf="true" [class.has-error]="(contact.id > 0 || email.dirty) && !email.valid">
